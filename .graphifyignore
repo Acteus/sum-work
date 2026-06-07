@@ -1,0 +1,28 @@
+# Dependencies and generated output
+node_modules/
+.next/
+out/
+build/
+coverage/
+graphify-out/
+
+# Repository and tool metadata
+.git/
+.vercel/
+.codex/
+.agents/
+.cursor/
+.idea/
+.vscode/
+
+# Local configuration and caches
+.env*
+*.tsbuildinfo
+next-env.d.ts
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+
+# Static starter assets do not contribute to the application graph
+public/*.svg

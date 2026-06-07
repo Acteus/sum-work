@@ -49,13 +49,15 @@ and success states. Preserve visible focus indicators and readable contrast.
 You are free to choose your component structure. A good starting point is:
 
 ```text
-src/components/expense-form/
-src/components/expense-history/
-src/components/member-manager/
+src/features/expenses/components/
+src/features/members/components/
 ```
 
 Avoid changing `src/domain/expenses.ts` until its tests make sense to you.
 When its behavior needs to change, add or update a test first.
+
+Read `AGENTS.md` before coding. It defines which folders are presentation-owned
+and which financial or server boundaries require coordination.
 
 ## Workflow
 

@@ -37,6 +37,10 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local agent and generated knowledge-graph state
+.codex/
+graphify-out/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

@@ -1,4 +1,4 @@
-import { ContributionCard } from "@/components/contribution-card";
+import { ContributionCard } from "@/components/marketing/contribution-card";
 import { demoExpenses, demoMembers } from "@/data/demo-group";
 import {
   calculateBalances,

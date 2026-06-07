@@ -2,11 +2,12 @@
 
 ## Current boundary
 
-The app is intentionally split into three layers:
+The app is intentionally split into four layers:
 
 1. `src/domain` owns money rules and has no React or database dependencies.
-2. `src/data` currently provides demo records.
-3. `src/app` and `src/components` render the product experience.
+2. `src/server` owns authenticated reads, writes, validation, and persistence.
+3. `src/features` and `src/components` render feature and shared UI.
+4. `src/app` composes routes; `src/data` temporarily provides demo records.
 
 This lets the expense form and history be built against stable types before a
 hosted database is configured.
@@ -25,7 +26,7 @@ Browser and server clients are available in `src/utils/supabase`. The Next.js
 proxy verifies and refreshes auth claims on application routes. Environment
 values are documented in `.env.example`; real values remain uncommitted.
 
-`supabase/schema.sql` defines the initial tables. Before using real accounts:
+`supabase/migrations` defines the versioned tables. Before using real accounts:
 
 - Add row-level security to every public table.
 - Let group members read group data.

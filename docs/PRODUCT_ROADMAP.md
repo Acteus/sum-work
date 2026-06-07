@@ -67,6 +67,11 @@ read relevant records. Mutations should run through validated server actions or
 route handlers, with expense creation, shares, payments, and audit events
 committed atomically.
 
+Implementation ownership and dependency boundaries are defined in `AGENTS.md`.
+Friend-owned UI belongs in `src/features/expenses/components` and
+`src/features/members/components`; financial and persistence work belongs in
+`src/domain`, `src/server`, and `supabase/migrations`.
+
 ## Delivery Phases
 
 ### 1. Authenticated Ledger Foundation

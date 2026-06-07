@@ -30,9 +30,12 @@ npm run build
 
 - `src/domain/expenses.ts` contains framework-independent balance logic.
 - `src/data/demo-group.ts` supplies temporary data for the app shell.
+- `src/features` contains feature-owned presentation and orchestration.
+- `src/server` contains authenticated reads, writes, persistence, and validation.
+- `src/components` contains shared and marketing-only UI.
 - `src/utils/supabase` contains browser, server, and session helpers.
 - `src/app/page.tsx` renders the current dashboard.
-- `supabase/schema.sql` is the proposed persistence model.
+- `supabase/migrations` contains the versioned persistence model.
 - `CONTRIBUTING.md` is the handoff for the next contributor.
 - `docs/ARCHITECTURE.md` explains boundaries and future integration.
 
