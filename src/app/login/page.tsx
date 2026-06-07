@@ -6,6 +6,11 @@ export const metadata: Metadata = {
   description: "Sign in to your Sumwork shared ledger.",
 };
 
-export default function LoginPage() {
-  return <AuthForm mode="login" />;
+type Props = {
+  searchParams: Promise<{ error?: string }>;
+};
+
+export default async function LoginPage({ searchParams }: Props) {
+  const { error } = await searchParams;
+  return <AuthForm mode="login" initialError={error} />;
 }

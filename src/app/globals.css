@@ -652,11 +652,52 @@ footer > span {
 }
 
 .auth-status {
-  color: rgba(242, 239, 230, 0.58);
   font-size: 11px;
   line-height: 1.55;
   margin: 0;
   min-height: 34px;
+  transition: color 200ms ease;
+}
+
+.auth-success {
+  padding: 34px 0;
+}
+
+.auth-success > p:first-child {
+  color: var(--paper);
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0 0 20px;
+}
+
+.auth-success-hint {
+  color: rgba(242, 239, 230, 0.58);
+  font-size: 12px;
+  margin: 0;
+}
+
+.auth-resend {
+  background: none;
+  border: 0;
+  border-bottom: 1px solid rgba(242, 239, 230, 0.4);
+  color: var(--paper);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  padding: 0 0 1px;
+}
+
+.auth-resend:hover {
+  border-color: var(--paper);
+}
+
+.auth-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.auth-form input:disabled {
+  opacity: 0.5;
 }
 
 .auth-alternate {

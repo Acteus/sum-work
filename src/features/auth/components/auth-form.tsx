@@ -1,10 +1,17 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { useActionState } from "react";
+import {
+  signInWithMagicLink,
+  signUpWithEmail,
+  type AuthActionState,
+} from "@/server/actions/auth";
 
 type AuthFormProps = {
   mode: "login" | "register";
+  /** Optional error forwarded from the confirm callback (e.g. invalid-link). */
+  initialError?: string;
 };
 
 const content = {
@@ -30,15 +37,28 @@ const content = {
   },
 } as const;
 
-export function AuthForm({ mode }: AuthFormProps) {
-  const [submitted, setSubmitted] = useState(false);
+const idle: AuthActionState = { status: "idle", message: "" };
+
+export function AuthForm({ mode, initialError }: AuthFormProps) {
+  const action = mode === "login" ? signInWithMagicLink : signUpWithEmail;
+  const [state, formAction, isPending] = useActionState(action, idle);
+
   const copy = content[mode];
   const isRegister = mode === "register";
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setSubmitted(true);
-  }
+  const statusMessage =
+    state.status !== "idle"
+      ? state.message
+      : initialError === "invalid-link"
+        ? "That sign-in link is invalid or has expired. Please request a new one."
+        : "We will only use your email for account access and ledger updates.";
+
+  const statusColor =
+    state.status === "error" || initialError
+      ? "var(--orange)"
+      : state.status === "success"
+        ? "#8fc4ad"
+        : "rgba(242, 239, 230, 0.58)";
 
   return (
     <main className="auth-page">
@@ -83,43 +103,68 @@ export function AuthForm({ mode }: AuthFormProps) {
             <b aria-hidden="true">{isRegister ? "02" : "01"}</b>
           </div>
 
-          <form className="auth-form" onSubmit={handleSubmit}>
-            {isRegister ? (
+          {state.status === "success" ? (
+            <div className="auth-success" aria-live="polite">
+              <p>{state.message}</p>
+              <p className="auth-success-hint">
+                Didn&apos;t receive it?{" "}
+                <button
+                  className="auth-resend"
+                  type="button"
+                  onClick={() => window.location.reload()}
+                >
+                  Try again
+                </button>
+              </p>
+            </div>
+          ) : (
+            <form className="auth-form" action={formAction}>
+              {isRegister ? (
+                <label>
+                  <span>Display name</span>
+                  <input
+                    autoComplete="name"
+                    name="name"
+                    placeholder="How friends know you"
+                    required
+                    type="text"
+                    disabled={isPending}
+                  />
+                </label>
+              ) : null}
+
               <label>
-                <span>Display name</span>
+                <span>Email address</span>
                 <input
-                  autoComplete="name"
-                  name="name"
-                  placeholder="How friends know you"
+                  autoComplete="email"
+                  inputMode="email"
+                  name="email"
+                  placeholder="you@example.com"
                   required
-                  type="text"
+                  type="email"
+                  disabled={isPending}
                 />
               </label>
-            ) : null}
 
-            <label>
-              <span>Email address</span>
-              <input
-                autoComplete="email"
-                inputMode="email"
-                name="email"
-                placeholder="you@example.com"
-                required
-                type="email"
-              />
-            </label>
+              <button
+                className="auth-submit"
+                type="submit"
+                disabled={isPending}
+                aria-busy={isPending}
+              >
+                {isPending ? "Sending…" : copy.submitLabel}
+                <span aria-hidden="true">→</span>
+              </button>
 
-            <button className="auth-submit" type="submit">
-              {copy.submitLabel}
-              <span aria-hidden="true">→</span>
-            </button>
-
-            <p className="auth-status" aria-live="polite">
-              {submitted
-                ? "This UI is ready. Supabase still needs to be connected before emails can be sent."
-                : "We will only use your email for account access and ledger updates."}
-            </p>
-          </form>
+              <p
+                className="auth-status"
+                aria-live="polite"
+                style={{ color: statusColor }}
+              >
+                {statusMessage}
+              </p>
+            </form>
+          )}
 
           <div className="auth-alternate">
             <span>{copy.alternatePrompt}</span>
