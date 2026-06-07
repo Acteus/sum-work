@@ -54,7 +54,8 @@ export function AuthForm({ mode, initialError }: AuthFormProps) {
         : "We will only use your email for account access and ledger updates.";
 
   const statusColor =
-    state.status === "error" || initialError
+    state.status === "error" ||
+    (state.status === "idle" && initialError)
       ? "var(--orange)"
       : state.status === "success"
         ? "#8fc4ad"

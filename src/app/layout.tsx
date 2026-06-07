@@ -25,7 +25,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${display.variable} ${body.variable}`}>
+    <html
+      lang="en"
+      className={`${display.variable} ${body.variable}`}
+      data-scroll-behavior="smooth"
+    >
       <body>{children}</body>
     </html>
   );
