@@ -5,6 +5,7 @@ import {
   formatMoney,
   simplifyDebts,
 } from "@/domain/expenses";
+import Link from "next/link";
 
 export default function Home() {
   const balances = calculateBalances(demoMembers, demoExpenses);
@@ -24,9 +25,10 @@ export default function Home() {
         <nav aria-label="Primary navigation">
           <a href="#balances">Balances</a>
           <a href="#contribute">Open features</a>
-          <a className="outline-button" href="#contribute">
-            Contribution brief
-          </a>
+          <Link href="/login">Sign in</Link>
+          <Link className="outline-button" href="/register">
+            Create account
+          </Link>
         </nav>
       </header>
 
