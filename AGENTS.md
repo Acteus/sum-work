@@ -101,6 +101,19 @@ Run focused tests while iterating and all three checks before finishing.
 
 ## 3. Repository Layout And Ownership
 
+### Folder guides
+
+- Every architectural, feature-ownership, or integration boundary must contain
+  a concise `README.md` describing its purpose, allowed contents, forbidden
+  dependencies, and the neighboring layer it calls.
+- Add or update the nearest folder README when a change introduces a new
+  responsibility, workflow, or dependency rule.
+- Do not create redundant README files for framework-conventional route
+  folders, generated output, static assets, or leaf folders whose contract is
+  already fully defined by their nearest parent guide.
+- Root-level `AGENTS.md` remains authoritative when a folder guide conflicts
+  with it.
+
 ### Route composition
 
 - `src/app`: routes, layouts, route-level loading/error states, and page
