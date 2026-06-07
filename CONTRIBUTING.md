@@ -68,5 +68,7 @@ When its behavior needs to change, add or update a test first.
 ## Useful learning path
 
 Start with rendering the fields, then local React state, validation, submission,
-and finally visual polish. You do not need Supabase credentials for the first
+and finally visual polish. You do not need to write database code for the first
 version; returning an `Expense` object in memory is a complete first milestone.
+Supabase helpers are ready in `src/utils/supabase` when the interface is ready
+to persist real records.

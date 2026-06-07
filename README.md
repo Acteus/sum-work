@@ -8,10 +8,15 @@ the next contributor owns the core expense-management interface.
 
 ```bash
 npm install
+cp .env.example .env.local
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+Set `NEXT_PUBLIC_SUPABASE_URL` and
+`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` in `.env.local`. Browser and server
+helpers live in `src/utils/supabase`, and `src/proxy.ts` refreshes auth sessions.
 
 ## Checks
 
@@ -25,6 +30,7 @@ npm run build
 
 - `src/domain/expenses.ts` contains framework-independent balance logic.
 - `src/data/demo-group.ts` supplies temporary data for the app shell.
+- `src/utils/supabase` contains browser, server, and session helpers.
 - `src/app/page.tsx` renders the current dashboard.
 - `supabase/schema.sql` is the proposed persistence model.
 - `CONTRIBUTING.md` is the handoff for the next contributor.

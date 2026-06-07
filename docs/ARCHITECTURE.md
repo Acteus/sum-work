@@ -19,11 +19,14 @@ hosted database is configured.
 - A negative balance means that member owes the group.
 - Remainder centavos from equal splitting are assigned deterministically.
 
-## Planned Supabase integration
+## Supabase integration
+
+Browser and server clients are available in `src/utils/supabase`. The Next.js
+proxy verifies and refreshes auth claims on application routes. Environment
+values are documented in `.env.example`; real values remain uncommitted.
 
 `supabase/schema.sql` defines the initial tables. Before using real accounts:
 
-- Add Supabase server/client packages and environment variables.
 - Add row-level security to every public table.
 - Let group members read group data.
 - Let group members create expenses and shares in their groups.
