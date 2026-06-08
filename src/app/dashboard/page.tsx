@@ -6,6 +6,15 @@ export const metadata: Metadata = {
   description: "Your Sumwork ledger dashboard.",
 };
 
-export default function DashboardPage() {
-  return <Dashboard />;
+type DashboardPageProps = {
+  searchParams: Promise<{ group?: string | string[] }>;
+};
+
+export default async function DashboardPage({
+  searchParams,
+}: DashboardPageProps) {
+  const { group } = await searchParams;
+  const activeGroupId = Array.isArray(group) ? group[0] : group;
+
+  return <Dashboard activeGroupId={activeGroupId} />;
 }

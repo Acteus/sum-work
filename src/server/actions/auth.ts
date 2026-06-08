@@ -15,10 +15,21 @@ async function getEmailRedirectTo() {
   const forwardedHost = requestHeaders.get("x-forwarded-host")?.trim();
   const forwardedProto =
     requestHeaders.get("x-forwarded-proto")?.trim() ?? "https";
+  const forwardedOrigin = forwardedHost
+    ? `${forwardedProto}://${forwardedHost}`
+    : "";
+  const isConfiguredLocalhost =
+    configuredSiteUrl?.includes("localhost") ||
+    configuredSiteUrl?.includes("127.0.0.1");
+  const isRequestLocalhost =
+    requestOrigin?.includes("localhost") ||
+    requestOrigin?.includes("127.0.0.1") ||
+    forwardedHost?.includes("localhost") ||
+    forwardedHost?.includes("127.0.0.1");
   const siteUrl =
-    configuredSiteUrl ||
-    requestOrigin ||
-    (forwardedHost ? `${forwardedProto}://${forwardedHost}` : "");
+    isConfiguredLocalhost && !isRequestLocalhost
+      ? requestOrigin || forwardedOrigin
+      : configuredSiteUrl || requestOrigin || forwardedOrigin;
 
   if (!siteUrl) {
     throw new Error(
