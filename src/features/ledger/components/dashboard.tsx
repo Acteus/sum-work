@@ -250,19 +250,19 @@ export function Dashboard({ activeGroupId }: DashboardProps) {
       </header>
 
       <section className="dashboard-hero">
-        <div>
-          <p className="eyebrow">Signed-in workspace</p>
-          <h1>
+        <div className="anim-slide-left">
+          <p className="eyebrow anim-fade-up delay-1">Signed-in workspace</p>
+          <h1 className="anim-fade-up delay-2">
             Welcome back,
             <br />
             <em>{activeMember.name}.</em>
           </h1>
-          <p className="dashboard-description">
+          <p className="dashboard-description anim-fade-up delay-3">
             This is the member landing page after login: a calm snapshot of your
             groups, informal balances, and items that need review.
           </p>
         </div>
-        <aside className="dashboard-balance-card">
+        <aside className="dashboard-balance-card anim-slide-right delay-2">
           <span>Your informal balance</span>
           <strong>
             {formatMoney(Math.abs(activeGroup.activeMemberBalanceInCents))}
@@ -312,13 +312,14 @@ export function Dashboard({ activeGroupId }: DashboardProps) {
           <p>All active group ledgers available to your account.</p>
         </div>
         <div className="group-switcher" aria-label="Available groups">
-          {groupSummaries.map((group) => {
+          {groupSummaries.map((group, idx) => {
             const isActive = group.id === activeGroup.id;
+            const delayClass = ["delay-1", "delay-2", "delay-3"][idx] ?? "";
 
             return (
               <button
                 aria-current={isActive ? "page" : undefined}
-                className="group-switcher-card"
+                className={`group-switcher-card anim-fade-up ${delayClass}`}
                 key={group.id}
                 onClick={() => selectGroup(group.id)}
                 type="button"
@@ -341,7 +342,7 @@ export function Dashboard({ activeGroupId }: DashboardProps) {
       </section>
 
       <section className="dashboard-grid">
-        <article className="dashboard-panel group-panel" id="groups">
+        <article className="dashboard-panel group-panel anim-fade-up delay-1" id="groups">
           <div className="dashboard-panel-heading">
             <div>
               <p className="eyebrow">Selected group</p>
@@ -372,7 +373,7 @@ export function Dashboard({ activeGroupId }: DashboardProps) {
           </div>
         </article>
 
-        <article className="dashboard-panel action-panel">
+        <article className="dashboard-panel action-panel anim-fade-up delay-2">
           <div className="dashboard-panel-heading">
             <div>
               <p className="eyebrow">Next actions</p>
@@ -392,7 +393,7 @@ export function Dashboard({ activeGroupId }: DashboardProps) {
           </ol>
         </article>
 
-        <article className="dashboard-panel balances-panel" id="balances">
+        <article className="dashboard-panel balances-panel anim-fade-up delay-3" id="balances">
           <div className="dashboard-panel-heading">
             <div>
               <p className="eyebrow">Informal balances</p>
@@ -422,7 +423,7 @@ export function Dashboard({ activeGroupId }: DashboardProps) {
           </div>
         </article>
 
-        <article className="dashboard-panel activity-panel" id="activity">
+        <article className="dashboard-panel activity-panel anim-fade-up delay-4" id="activity">
           <div className="dashboard-panel-heading">
             <div>
               <p className="eyebrow">Recent activity</p>

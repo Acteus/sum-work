@@ -33,25 +33,25 @@ export default function Home() {
       </header>
 
       <section className="hero" id="top">
-        <div className="hero-copy">
-          <p className="eyebrow">A shared ledger for shared lives</p>
-          <h1>
+        <div className="hero-copy anim-slide-left">
+          <p className="eyebrow anim-fade-up delay-1">A shared ledger for shared lives</p>
+          <h1 className="anim-fade-up delay-2">
             Split the cost.
             <br />
             <em>Keep the friendship.</em>
           </h1>
-          <p className="hero-description">
+          <p className="hero-description anim-fade-up delay-3">
             Sumwork turns the awkward arithmetic after a trip, dinner, or
             grocery run into a short, fair list of payments.
           </p>
-          <div className="hero-actions">
+          <div className="hero-actions anim-fade-up delay-4">
             <a className="solid-button" href="#balances">
               View demo group <span aria-hidden="true">↓</span>
             </a>
             <span>PHP · exact-cent calculations</span>
           </div>
         </div>
-        <div className="hero-mark" aria-hidden="true">
+        <div className="hero-mark anim-slide-right delay-2" aria-hidden="true">
           <span>₱</span>
           <div className="orbit orbit-one" />
           <div className="orbit orbit-two" />
@@ -59,7 +59,7 @@ export default function Home() {
       </section>
 
       <section className="ledger-section" id="balances">
-        <div className="section-heading">
+        <div className="section-heading anim-fade-up">
           <div>
             <p className="eyebrow">Demo group · Weekend away</p>
             <h2>The money, resolved.</h2>
@@ -71,7 +71,7 @@ export default function Home() {
         </div>
 
         <div className="ledger-grid">
-          <article className="balance-panel">
+          <article className="balance-panel anim-fade-up delay-1">
             <div className="panel-title">
               <h3>Current balances</h3>
               <span>{demoMembers.length} people</span>
@@ -100,7 +100,7 @@ export default function Home() {
             </div>
           </article>
 
-          <article className="settlement-panel">
+          <article className="settlement-panel anim-fade-up delay-2">
             <div className="panel-title">
               <h3>Settle in {settlements.length}</h3>
               <span>minimum fuss</span>
@@ -128,7 +128,7 @@ export default function Home() {
       </section>
 
       <section className="contribute-section" id="contribute">
-        <div className="section-heading">
+        <div className="section-heading anim-fade-up">
           <div>
             <p className="eyebrow">The next chapter is intentionally open</p>
             <h2>Four features, ready to own.</h2>
@@ -183,3 +183,4 @@ export default function Home() {
     </main>
   );
 }
+

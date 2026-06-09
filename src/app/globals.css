@@ -7,7 +7,223 @@
   --orange: #e4572e;
   --green: #335c50;
   --line: rgba(32, 32, 29, 0.2);
+
+  /* Liquid glass tokens */
+  --glass-bg: rgba(242, 239, 230, 0.18);
+  --glass-bg-hover: rgba(242, 239, 230, 0.28);
+  --glass-border: rgba(242, 239, 230, 0.35);
+  --glass-shadow: 0 8px 32px rgba(32, 32, 29, 0.14),
+    0 1.5px 4px rgba(32, 32, 29, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 0 rgba(32, 32, 29, 0.06);
+  --glass-shadow-hover: 0 16px 48px rgba(32, 32, 29, 0.2),
+    0 2px 8px rgba(32, 32, 29, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65),
+    inset 0 -1px 0 rgba(32, 32, 29, 0.06);
 }
+
+/* ============================================================
+   KEYFRAME ANIMATIONS
+   ============================================================ */
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92) rotate(-7deg);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) rotate(-7deg);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: rotate(-7deg) translateY(0); }
+  50%       { transform: rotate(-7deg) translateY(-12px); }
+}
+
+@keyframes orbit-spin {
+  from { transform: rotate(36deg) scaleX(1.28); }
+  to   { transform: rotate(396deg) scaleX(1.28); }
+}
+
+@keyframes orbit-spin-reverse {
+  from { transform: rotate(-40deg) scaleY(1.28); }
+  to   { transform: rotate(-400deg) scaleY(1.28); }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: var(--glass-shadow); }
+  50%       { box-shadow: var(--glass-shadow-hover); }
+}
+
+/* ============================================================
+   LIQUID GLASS UTILITIES
+   ============================================================ */
+
+/* Base liquid glass surface */
+.glass {
+  backdrop-filter: blur(18px) saturate(1.6) brightness(1.05);
+  -webkit-backdrop-filter: blur(18px) saturate(1.6) brightness(1.05);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  position: relative;
+  overflow: hidden;
+  transition: background 240ms ease, box-shadow 240ms ease,
+    border-color 240ms ease, transform 240ms ease;
+}
+
+/* Specular highlight arc on top edge — the key liquid glass trick */
+.glass::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0.18) 30%,
+    transparent 60%
+  );
+  z-index: 1;
+}
+
+.glass:hover {
+  background: var(--glass-bg-hover);
+  box-shadow: var(--glass-shadow-hover);
+}
+
+/* Dark glass variant for ink-background sections */
+.glass-dark {
+  backdrop-filter: blur(18px) saturate(1.5) brightness(0.92);
+  -webkit-backdrop-filter: blur(18px) saturate(1.5) brightness(0.92);
+  background: rgba(32, 32, 29, 0.38);
+  border: 1px solid rgba(242, 239, 230, 0.18);
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.28),
+    0 1.5px 4px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.18);
+  position: relative;
+  overflow: hidden;
+  transition: background 240ms ease, box-shadow 240ms ease,
+    border-color 240ms ease, transform 240ms ease;
+}
+
+.glass-dark::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    155deg,
+    rgba(255, 255, 255, 0.14) 0%,
+    rgba(255, 255, 255, 0.04) 35%,
+    transparent 60%
+  );
+  z-index: 1;
+}
+
+.glass-dark:hover {
+  background: rgba(32, 32, 29, 0.5);
+}
+
+/* Green glass for the balance card */
+.glass-green {
+  backdrop-filter: blur(18px) saturate(1.8) brightness(0.9);
+  -webkit-backdrop-filter: blur(18px) saturate(1.8) brightness(0.9);
+  background: rgba(51, 92, 80, 0.72);
+  border: 1px solid rgba(143, 196, 173, 0.35);
+  box-shadow:
+    0 8px 32px rgba(51, 92, 80, 0.38),
+    0 1.5px 4px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(143, 196, 173, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+  transition: background 240ms ease, box-shadow 240ms ease, transform 240ms ease;
+}
+
+.glass-green::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    155deg,
+    rgba(143, 196, 173, 0.38) 0%,
+    rgba(143, 196, 173, 0.1) 35%,
+    transparent 60%
+  );
+  z-index: 1;
+}
+
+/* Animation entry helpers */
+.anim-fade-up {
+  animation: fade-up 0.6s ease both;
+}
+
+.anim-fade-in {
+  animation: fade-in 0.5s ease both;
+}
+
+.anim-slide-left {
+  animation: slide-in-left 0.65s ease both;
+}
+
+.anim-slide-right {
+  animation: slide-in-right 0.65s ease both;
+}
+
+/* Stagger delays */
+.delay-1 { animation-delay: 0.08s; }
+.delay-2 { animation-delay: 0.18s; }
+.delay-3 { animation-delay: 0.28s; }
+.delay-4 { animation-delay: 0.38s; }
+.delay-5 { animation-delay: 0.48s; }
+.delay-6 { animation-delay: 0.58s; }
 
 * {
   box-sizing: border-box;
@@ -37,6 +253,7 @@ a {
   margin: 0 auto;
   max-width: 1440px;
   padding: 24px 5vw;
+  animation: fade-in 0.5s ease both;
 }
 
 .brand {
@@ -159,14 +376,34 @@ nav a:not(.outline-button):hover {
   aspect-ratio: 1;
   background: var(--green);
   border-radius: 50%;
-  box-shadow: 14px 14px 0 var(--cream);
+  box-shadow:
+    14px 14px 0 var(--cream),
+    0 0 0 1px rgba(143, 196, 173, 0.3),
+    inset 0 2px 0 rgba(143, 196, 173, 0.5),
+    inset 0 -2px 0 rgba(0,0,0,0.15);
   color: var(--paper);
   display: flex;
   justify-content: center;
   max-width: 420px;
+  overflow: hidden;
   position: relative;
-  transform: rotate(-7deg);
+  animation: float 6s ease-in-out infinite;
   width: 100%;
+}
+
+.hero-mark::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: linear-gradient(
+    145deg,
+    rgba(143, 196, 173, 0.42) 0%,
+    rgba(143, 196, 173, 0.12) 30%,
+    transparent 55%
+  );
+  z-index: 2;
 }
 
 .hero-mark > span {
@@ -183,11 +420,11 @@ nav a:not(.outline-button):hover {
 }
 
 .orbit-one {
-  transform: rotate(36deg) scaleX(1.28);
+  animation: orbit-spin 18s linear infinite;
 }
 
 .orbit-two {
-  transform: rotate(-40deg) scaleY(1.28);
+  animation: orbit-spin-reverse 24s linear infinite;
 }
 
 .ledger-section {
@@ -246,6 +483,13 @@ nav a:not(.outline-button):hover {
 .settlement-panel {
   border: 1px solid rgba(242, 239, 230, 0.22);
   padding: 30px;
+  transition: box-shadow 240ms ease, transform 240ms ease;
+}
+
+.balance-panel:hover,
+.settlement-panel:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 36px rgba(32,32,29,0.13);
 }
 
 .settlement-panel {
@@ -384,11 +628,34 @@ nav a:not(.outline-button):hover {
   grid-template-columns: 48px 1fr;
   min-height: 250px;
   padding: 34px;
-  transition: background 180ms ease;
+  position: relative;
+  overflow: hidden;
+  transition: background 240ms ease, transform 240ms ease, box-shadow 240ms ease;
+}
+
+.contribution-card::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 240ms ease;
 }
 
 .contribution-card:hover {
   background: var(--cream);
+  transform: scale(1.012);
+  box-shadow: 0 8px 28px rgba(32,32,29,0.1);
+  z-index: 1;
+}
+
+.contribution-card:hover::after {
+  opacity: 1;
 }
 
 .contribution-number {
@@ -742,6 +1009,7 @@ footer > span {
   margin: 0 auto;
   max-width: 1440px;
   padding: 24px 5vw;
+  animation: fade-in 0.5s ease both;
 }
 
 .dashboard-hero {
@@ -752,6 +1020,8 @@ footer > span {
   margin: 0 auto;
   max-width: 1440px;
   padding: 70px 5vw 54px;
+  animation: fade-up 0.65s ease both;
+  animation-delay: 0.1s;
 }
 
 .dashboard-hero h1 {
@@ -777,9 +1047,35 @@ footer > span {
 
 .dashboard-balance-card {
   background: var(--green);
-  box-shadow: 12px 12px 0 var(--cream);
+  box-shadow:
+    12px 12px 0 var(--cream),
+    0 0 0 1px rgba(143, 196, 173, 0.25),
+    inset 0 2px 0 rgba(143, 196, 173, 0.45),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.12);
   color: var(--paper);
+  overflow: hidden;
   padding: 30px;
+  position: relative;
+  transition: transform 240ms ease, box-shadow 240ms ease;
+}
+
+.dashboard-balance-card::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    145deg,
+    rgba(143, 196, 173, 0.38) 0%,
+    rgba(143, 196, 173, 0.1) 35%,
+    transparent 60%
+  );
+  z-index: 1;
+}
+
+.dashboard-balance-card > * {
+  position: relative;
+  z-index: 2;
 }
 
 .dashboard-balance-card span,
@@ -890,23 +1186,51 @@ footer > span {
   appearance: none;
   background: transparent;
   border: 1px solid var(--line);
+  border-radius: 2px;
   color: inherit;
   cursor: pointer;
   display: grid;
   font: inherit;
   gap: 9px;
   min-height: 178px;
+  overflow: hidden;
   padding: 22px;
+  position: relative;
   text-align: left;
-  transition: background 160ms ease, border-color 160ms ease,
-    box-shadow 160ms ease, transform 160ms ease;
+  transition: background 200ms ease, border-color 200ms ease,
+    box-shadow 200ms ease, transform 200ms ease;
   width: 100%;
+}
+
+.group-switcher-card::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.5) 0%,
+    transparent 50%
+  );
+  opacity: 0;
+  transition: opacity 200ms ease;
+  z-index: 1;
 }
 
 .group-switcher-card:hover {
   background: #fffaf0;
+  backdrop-filter: blur(8px) saturate(1.4);
+  -webkit-backdrop-filter: blur(8px) saturate(1.4);
   border-color: rgba(32, 32, 29, 0.42);
-  transform: translateY(-2px);
+  box-shadow:
+    0 8px 24px rgba(32, 32, 29, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transform: translateY(-3px);
+}
+
+.group-switcher-card:hover::before {
+  opacity: 1;
 }
 
 .group-switcher-card:focus-visible {
@@ -966,7 +1290,35 @@ footer > span {
 
 .dashboard-panel {
   border: 1px solid var(--line);
+  overflow: hidden;
   padding: 30px;
+  position: relative;
+  transition: box-shadow 240ms ease, transform 240ms ease;
+}
+
+.dashboard-panel::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    150deg,
+    rgba(255, 255, 255, 0.38) 0%,
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+.dashboard-panel:hover {
+  box-shadow:
+    0 10px 32px rgba(32, 32, 29, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px);
+}
+
+.dashboard-panel:hover::after {
+  opacity: 1;
 }
 
 .dashboard-panel-heading {
